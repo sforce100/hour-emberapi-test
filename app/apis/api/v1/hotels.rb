@@ -1,6 +1,36 @@
 module API
   module V1
     class Hotels < Grape::API
+      resource :roomTypes do
+        get '/:hotel_code' do
+          rooms = 
+            if params[:hotel_code] == '051621'
+              [ { "room_type" => "YG", 
+                  "room_name" => "和颐商务标准房", 
+                  "price" => 120, 
+                  "amount" => 2, 
+                  "sale_code" => "791" }, 
+                { "room_type" => "YE", 
+                  "room_name" => "和颐商务大床房", 
+                  "price" => 120, 
+                  "amount" => 2, 
+                  "sale_code" => "791" }]
+            else
+              [{ "room_type" => "YN", 
+                  "room_name" => "和N商务房", 
+                  "price" => 88, 
+                  "amount" => 0, 
+                  "sale_code" => "791" }]
+            end
+          { "result" => "查询成功", 
+            "result_code" => 0, 
+            "roomType" => { 
+                      "id" => params[:hotel_code], 
+                      "date" => "20150607", 
+                      "room_types" => rooms
+                      } }
+        end
+      end
       resource :hotels do
         get '/' do
           _hotels = 
