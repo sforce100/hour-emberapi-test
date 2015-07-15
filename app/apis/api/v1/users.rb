@@ -2,6 +2,17 @@ module API
   module V1
     class Users < Grape::API
       format :json
+
+      resource :session do
+        post '/' do
+          { session: { username: 'hzh', token: 'hzhtoken' } }
+        end
+
+        delete '/' do
+          {}
+        end
+      end
+
       resource :users do
         desc '返回所有的用户'
         get '/' do
